@@ -4,7 +4,7 @@ from tempfile import mkstemp
 from shutil import copyfile
 from subprocess import Popen, PIPE
 
-from PIL import Image, ImageFilter
+from PIL import Image
 
 from sorl.thumbnail import defaults
 from sorl.thumbnail.processors import get_valid_options, dynamic_import

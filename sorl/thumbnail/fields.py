@@ -1,4 +1,3 @@
-import os.path
 try:
     from UserDict import DictMixin
 except ImportError:
