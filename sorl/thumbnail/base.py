@@ -4,7 +4,7 @@ from tempfile import mkstemp
 from shutil import copyfile
 from subprocess import Popen, PIPE
 
-from PIL import Image, ImageFilter
+from PIL import Image
 
 from sorl.thumbnail import defaults
 from sorl.thumbnail.processors import get_valid_options, dynamic_import
@@ -120,7 +120,7 @@ class Thumbnail(object):
         if not hasattr(self, '_data'):
             try:
                 self._data = Image.open(self.dest)
-            except IOError, detail:
+            except (IOError, detail):
                 raise ThumbnailException(detail)
         return self._data
     def _set_data(self, im):
@@ -147,7 +147,7 @@ class Thumbnail(object):
         else:
             try:
                 self._source_data = Image.open(image)
-            except IOError, detail:
+            except (IOError, detail):
                 raise ThumbnailException("%s: %s" % (detail, image))
     source_data = property(_get_source_data, _set_source_data)
 
@@ -156,7 +156,7 @@ class Thumbnail(object):
         try:
             p = Popen((self.wvps_path, filename, tmp), stdout=PIPE)
             p.wait()
-        except OSError, detail:
+        except (OSError, detail):
             os.remove(tmp)
             raise ThumbnailException('wvPS error: %s' % detail)
         self._convert_imagemagick(tmp)
@@ -173,7 +173,7 @@ class Thumbnail(object):
                 '-antialias', '-colorspace', 'rgb', '-format', 'PNG24',
                 '%s[0]' % filename, tmp), stdout=PIPE)
             p.wait()
-        except OSError, detail:
+        except (OSError, detail):
             os.remove(tmp)
             raise ThumbnailException('ImageMagick error: %s' % detail)
         self.source_data = tmp
@@ -205,7 +205,7 @@ class Thumbnail(object):
                 # larger than ImageFile.MAXBLOCK, which is 64k by default)
                 try:
                     im.save(self.dest, quality=self.quality)
-                except IOError, detail:
+                except (IOError, detail):
                     raise ThumbnailException(detail)
 
     # Some helpful methods

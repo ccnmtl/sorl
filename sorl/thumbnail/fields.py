@@ -1,11 +1,11 @@
-import os.path
-from UserDict import DictMixin
+try:
+    from UserDict import DictMixin
+except ImportError:
+    from collections import MutableMapping as DictMixin
 
 from django.db.models.fields.files import ImageField, ImageFieldFile
 from django.utils.safestring import mark_safe
-from django.utils.functional import curry
 from django.utils.html import escape
-from django.conf import settings
 
 from sorl.thumbnail.main import DjangoThumbnail
 from sorl.thumbnail.utils import delete_thumbnails
@@ -24,7 +24,7 @@ ALL_ARGS = {
 TAG_HTML = '<img src="%(src)s" width="%(width)s" height="%(height)s" alt="" />'
 
 
-class ThumbsDict(object, DictMixin):
+class ThumbsDict(DictMixin):
     def __init__(self, descriptor):
         super(ThumbsDict, self).__init__()
         self.descriptor = descriptor
