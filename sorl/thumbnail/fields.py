@@ -1,7 +1,4 @@
-try:
-    from UserDict import DictMixin
-except ImportError:
-    from collections import MutableMapping as DictMixin
+from collections.abc import MutableMapping as DictMixin
 
 from django.db.models.fields.files import ImageField, ImageFieldFile
 from django.utils.safestring import mark_safe
