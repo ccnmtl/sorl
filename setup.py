@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name = "sorl",
-    version = "3.2ctl",
+    version = "3.3ctl",
     install_requires=[
         "Django",
     ],
